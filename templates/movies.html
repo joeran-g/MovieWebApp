@@ -1,30 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ user.name }}'s Movies</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
 
-<h1>🎥 {{ user.name }}'s Movies</h1>
+<div class="page-header">
+    <h2>🎥 {{ user.name }}'s Movies</h2>
+    <a class="back-link" href="{{ url_for('home') }}">← Back to users</a>
+</div>
 
-<a href="{{ url_for('users') }}">← Back to users</a>
-
-<ul>
+<div class="movie-grid">
     {% for movie in movies %}
-        <li>
-            <img src="{{ movie.poster_url }}" width="80">
-            <strong>{{ movie.title }}</strong> ({{ movie.year }})
-            – {{ movie.director }}
-        </li>
+        <div class="movie-card">
+            <a href="{{ movie.poster_url }}" target="_blank">
+                <img src="{{ movie.poster_url }}" alt="{{ movie.title }} poster">
+            </a>
+
+            <div class="movie-info">
+                <h3>{{ movie.title }}</h3>
+                <p>{{ movie.year }} · {{ movie.director }}</p>
+            </div>
+
+            <form method="POST" action="/users/{{ user.id }}/movies/{{ movie.id }}/update" class="inline-form">
+                <input type="text" name="title" value="{{ movie.title }}" required>
+                <div class="button-group">
+                    <button type="submit">Update</button>
+                    <button class="danger" type="submit" formaction="/users/{{ user.id }}/movies/{{ movie.id }}/delete">Delete</button>
+                </div>
+            </form>
+        </div>
     {% endfor %}
-</ul>
+</div>
 
-<h2>Add Movie</h2>
-<form method="post" action="{{ url_for('add_movie', user_id=user.id) }}">
-    <input type="text" name="title" placeholder="Movie title" required>
-    <button type="submit">Add Movie</button>
-</form>
+<div class="add-box">
+    <h3>Add Movie</h3>
+    <form method="post" action="{{ url_for('add_movie', user_id=user.id) }}">
+        <input type="text" name="title" placeholder="Movie title" required>
+        <button type="submit">Add Movie</button>
+    </form>
+</div>
 
-</body>
-</html>
+{% endblock %}

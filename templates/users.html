@@ -1,29 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Users</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
 
-<h1>🎬 Movie App – Users</h1>
+<div class="page-header">
+    <h2>🎬 Users</h2>
+</div>
 
-<ul>
+<div class="movie-grid">
     {% for user in users %}
-        <li>
-            {{ user.name }}
-            <a href="{{ url_for('user_movies', user_id=user.id) }}">View Movies</a>
-        </li>
+        <div class="movie-card">
+            <h3>{{ user.name }}</h3>
+
+            <form action="{{ url_for('user_movies', user_id=user.id) }}" method="POST">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                >
+                <button type="submit">Access Movies</button>
+            </form>
+        </div>
     {% endfor %}
-</ul>
+</div>
 
-<h2>Add User</h2>
-<form method="post" action="{{ url_for('add_user') }}">
-    <input type="text" name="name" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Add</button>
-</form>
+<div class="add-box">
+    <h3>Add User</h3>
+    <form method="post" action="{{ url_for('add_user') }}">
+        <input type="text" name="name" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Add User</button>
+    </form>
+</div>
 
-</body>
-</html>
+{% endblock %}

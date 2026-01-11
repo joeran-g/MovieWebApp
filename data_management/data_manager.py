@@ -10,7 +10,8 @@ class DataManager:
         return User.query.get(user_id)
 
     def create_user(self, name, password):
-        user = User(name=name, password=password)
+        user = User(name=name)
+        user.set_password(password)
         db.session.add(user)
         db.session.commit()
         return user

@@ -1,36 +1,215 @@
+:root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --primary: #4f46e5;
+    --danger: #ef4444;
+    --text: #1f2937;
+    --muted: #6b7280;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    padding: 30px;
-    background: #f5f5f5;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
 }
 
-h1 {
-    margin-bottom: 20px;
+/* ---------- LAYOUT ---------- */
+
+.header {
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 }
 
-li {
-    background: white;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
+.footer {
+    text-align: center;
+    color: var(--muted);
+    padding: 2rem 0;
 }
 
-img {
-    vertical-align: middle;
-    margin-right: 10px;
+/* ---------- PAGE HEADER ---------- */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-form input {
-    padding: 8px;
-    margin-right: 5px;
+.back-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.back-link:hover {
+    opacity: 0.7;
+}
+
+/* ---------- MOVIE GRID ---------- */
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ---------- MOVIE CARD ---------- */
+
+.movie-card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.movie-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.movie-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 0.8rem;
+    transition: transform 0.2s;
+}
+
+.movie-card a:hover img {
+    transform: scale(1.02);
+}
+
+.movie-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.movie-info p {
+    margin: 0.2rem 0 0.8rem;
+    color: var(--muted);
+}
+
+/* ---------- FORMS ---------- */
+
+form {
+    margin-top: 0.5rem;
+}
+
+.inline-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
 }
 
 button {
-    padding: 8px 12px;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: none;
     cursor: pointer;
+    background: var(--primary);
+    color: white;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.1s;
+    flex: 1;
+}
+
+button:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button.danger {
+    background: var(--danger);
+}
+
+button.danger:hover {
+    background: #dc2626;
+}
+
+/* ---------- ADD BOX ---------- */
+
+.add-box {
+    background: var(--card);
+    margin-top: 3rem;
+    padding: 1.5rem;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.add-box h3 {
+    margin-top: 0;
+}
+
+.add-box form {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.add-box input {
+    flex: 1;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .movie-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .add-box form {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-grid {
+        grid-template-columns: 1fr;
+    }
 }
